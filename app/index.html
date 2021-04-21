@@ -1,164 +1,26 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Numbers</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/styles.css" rel="stylesheet" type="text/css" />
-    </head>
-    <body>
-        <h1>Numbers <span data-bind="text: gameMessage" class="gameMessage"></span></h1>
-        <div data-bind="foreach: numbers" class="numbers">
-            <span data-bind="text: $data, click: $parent.onNumberClick" class="number"></span>
-        </div>
-        <div data-bind="foreach: history" class="history">
-            <div data-bind="css: { won: won, lose: !won }, text: time"></div>
-        </div>
-        <div data-bind="text: clock" class="clock"></div>
-        
-        <script src="js/jq.js"></script>
-        <script src="js/ko.js"></script>
-        <script>
-            
-            function pad(text, length, padding) {
-                while(text.toString().length < length) {
-                    text = padding + text;
-                }
 
-                return text;
-            }
-            
-            function timeOnClock(time) {
-                var minutes = Math.floor(time / 60);
-                var seconds = time - (minutes * 60);
-                
-                return pad(minutes, 2, "0") + ":" + pad(seconds, 2, "0");
-                
-            }
-                
-            function ViewModel() {
-                var self = this;
-                
-                self.level = ko.observable(0);
-                self.limit = ko.observable(1000);
-                self.gameMessage = ko.observable(null);
+<head>
+  <title>Numbers</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="css/styles.css" rel="stylesheet" type="text/css" />
+</head>
 
-                self.numbers = ko.observableArray([]);
-                self.history = ko.observableArray([]);
-                
-                self.timeId = null;
-                self.time = ko.observable(0);
-                self.clock = ko.computed(function () {
-                    return timeOnClock(self.time());
-                });
-                
-                self.init = function () {
-                    self.setNumbers();
-                    self.resetClock();
-                };
-                
-                self.startClock = function () {
-                    self.timeId = setInterval(function () {
-                        self.time(self.time() + 1);
-                    }, 1000);
-                };
-                
-                self.stopClock = function () {
-                    if (self.timeId !== null) {
-                        clearInterval(self.timeId);
-                    }
-                };
-                
-                self.resetClock = function () {
-                    self.stopClock();
-                    self.time(0);
-                    self.startClock();
-                };
-                
-                self.setNumbers = function () {
-                    self.numbers([]);
-                    
-                    for (var i = 0; i < self.level(); i++) {
-                        var number = self.createNumber();
-                        
-                        self.numbers.push(number);
-                        self.numbers.push(number);
-                    }
-                    
-                    self.numbers.push(self.createNumber());
-                    
-                    self.shuffleNumbers();
-                };
-                
-                self.createNumber = function () {
-                    var number = Math.floor(Math.random() * self.limit());
-                    
-                    if (self.numbers().indexOf(number) !== -1) {
-                        return self.createNumber();
-                    }
-                    
-                    return number;
-                };
-                
-                self.shuffleNumbers = function () {
-                    var numbers = self.numbers().sort(function() {
-                        return .5 - Math.random();
-                    });
-                    
-                    self.numbers(numbers);
-                };
-                
-                self.onNumberClick = function (number) {
-                    var equals = self.numbers().filter(function (value) {
-                        return value === number;
-                    });
-                    
-                    self[equals.length === 1 ? 'won' : 'lose']();
-                };
-                
-                self.save = function (won) {
-                    var history = self.history();
-                    history.push({
-                        time: timeOnClock(self.time()), 
-                        won: won
-                    });
-                    self.history(history);
-                };
-                
-                self.levelUp = function () {
-                    self.level(self.level() + 1);
-                };
-                
-                self.levelDown = function () {
-                    self.level(self.level() - 1);
-                };
-                
-                self.won = function () {
-                    self.save(true);
-                    setTimeout(function () {
-                        self.gameMessage(null);
-                    }, 500);
-                    
-                    self.levelUp();
-                    self.init();
-                };
-                
-                self.lose = function () {
-                    self.save(false);
-                    setTimeout(function () {
-                        self.gameMessage(null);
-                    }, 500);
-                    
-                    self.levelDown();
-                    self.init();
-                };
-            }
-            
-            $(function() {
-                viewModel = new ViewModel();
-                ko.applyBindings(viewModel);
-                viewModel.init();
-            });
-        </script>
-    </body>
+<body>
+  <h1>Numbers <span data-bind="text: gameMessage" class="gameMessage"></span></h1>
+  <div data-bind="foreach: numbers" class="numbers">
+    <span data-bind="text: $data, click: $parent.onNumberClick" class="number"></span>
+  </div>
+  <div data-bind="foreach: history" class="history">
+    <div data-bind="css: { won: won, lose: !won }, text: time"></div>
+  </div>
+  <div data-bind="text: clock" class="clock"></div>
+
+  <script src="js/jq.js"></script>
+  <script src="js/ko.js"></script>
+  <script src="js/index.js"></script>
+</body>
+
 </html>

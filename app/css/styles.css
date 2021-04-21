@@ -1,53 +1,53 @@
 * {
-    padding: 0px;
-    margin: 0px;
+  padding: 0px;
+  margin: 0px;
 }
 
 body {
-    font-family: sans-serif;
-    font-size: 12px;
-    padding: 10px;
-    text-align: center;
+  font-family: sans-serif;
+  font-size: 12px;
+  padding: 10px;
+  text-align: center;
 }
 
 h1 {
-    font-size: 3em;
+  font-size: 3em;
 }
 
 .gameMessage {
-    font-size: .3em;
+  font-size: .3em;
 }
 
 .numbers {
-    margin-top: 10px;
-    margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .number {
-    border: 1px solid #000;
-    display: inline-block;
-    line-height: 40px;
-    height: 40px;
-    width: 40px;
-    border-radius: 20px;
+  border: 1px solid #000;
+  display: inline-block;
+  line-height: 40px;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
 }
 
 .number:hover {
-    background-color: #eee;
-    cursor: pointer;
+  background-color: #eee;
+  cursor: pointer;
 }
 
 .clock {
 }
 
 .history {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .history .lose {
-    color: #f90;
+  color: #f90;
 }
 
 .history .won {
-    color: #6c0;
+  color: #6c0;
 }
