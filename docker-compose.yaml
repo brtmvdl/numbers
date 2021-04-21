@@ -4,6 +4,6 @@ services:
   app:
     build: ./app
     volumes:
-      - ./app:/app
+      - ./app:/usr/local/apache2/htdocs/
     ports:
-      - 8080:8080
+      - 8080:80
