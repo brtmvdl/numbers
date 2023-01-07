@@ -1,0 +1,5 @@
+# Numbers
+
+## License
+
+[MIT](./LICENSE)
