@@ -7,3 +7,7 @@ services:
       - './src/app:/usr/local/apache2/htdocs/'
     ports:
       - '80:80'
+
+  github-release:
+    image: 'github-release'
+    build: './src'
