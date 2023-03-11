@@ -4,7 +4,7 @@ services:
   app:
     build: './src/app'
     volumes:
-      - './src/app:/usr/local/apache2/htdocs/'
+      - './src/app/html:/usr/share/nginx/html'
     ports:
       - '80:80'
 
