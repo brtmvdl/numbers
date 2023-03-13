@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numbers</title>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script src="./js/nElement.js"></script>
+    <script>
+        const app = nElement.fromId('app')
+
+        const title = new nH1()
+        title.setText('Numbers')
+        app.append(title)
+
+        const games = new nElement()
+        app.append(games)
+
+        const gameList = [
+            { name: 'Numbers', link: '/numbers/' },
+            { name: 'Calc', link: '/calc/' },
+        ]
+
+        gameList.map(({ name, link }) => {
+            const game = new nElement()
+
+            const gameTitle = new nElement()
+            gameTitle.setText(name)
+            game.append(gameTitle)
+
+            const gameButton = new nLink()
+            gameButton.setText('play')
+            gameButton.href(link)
+            game.append(gameButton)
+
+            games.append(game)
+        })
+
+    </script>
+
+</body>
+
+</html>

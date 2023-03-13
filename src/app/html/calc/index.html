@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Calc</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <script src="../js/nElement.js"></script>
+  <script>
+    const app = nElement.fromId('app')
+
+    const title = new nH1()
+    title.setText('Calc')
+    app.append(title)
+
+    const calc = new nElement()
+    calc.setStyle('font-size', '3rem')
+    app.append(calc)
+
+    const buttonsEl = new nFlex()
+    app.append(buttonsEl)
+
+    const randomNumber = (num = 1) => Math.floor((Math.random() * num))
+
+    const newCalc = () => {
+      const numb = randomNumber(100)
+
+      const firstPart = randomNumber(100)
+      const secondPart = numb - firstPart
+
+      calc.setText(`${firstPart} + ${secondPart}`)
+
+      buttonsEl.clear()
+
+      console.log([numb, numb - 1, numb + 1, numb + 2, numb - 2]
+        .sort((a, b) => randomNumber(2) == 0 ? (a - b) : (b - a))
+        .map((n) => {
+          const buttonEl = new nButton()
+          buttonEl.setText(n)
+          buttonEl.on('click', () => {
+            if (firstPart + secondPart === n) {
+              buttonEl.setStyle('background-color', '#000000')
+              buttonEl.setStyle('color', '#ffffff')
+            } else {
+              buttonEl.setStyle('background-color', '#ffffff')
+              buttonEl.setStyle('color', '#000000')
+            }
+
+            setTimeout(() => newCalc(), 1000)
+          })
+          buttonsEl.append(buttonEl)
+          return n
+        }))
+
+      console.log({ numb, firstPart, secondPart })
+    }
+
+    newCalc()
+
+  </script>
+
+</body>
+
+</html>
